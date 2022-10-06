@@ -49,25 +49,24 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-  // update a category by its `id` value
+  // update a tag's name by its `id` value
   try {
-    const userData = await Category.update(req.body, {
+    const tagData = await Category.update(req.body, {
       where: {
-        id: req.params.id,
-      },
-      individualHooks: true
-    });
-    if (!userData[0]) {
-      res.status(404).json({ message: 'No category with this id, please make sure you entered all valid inputs!' });
+        id: req.params.id
+    }});
+    if (!tagData[0]) {
+      res.status(404).json({ message: 'No tag with this id, please make sure you entered all valid inputs!' });
       return;
     }
-    res.status(200).json(userData);
+    res.status(200).json(tagData);
   } catch (err) {
     res.status(500).json(err);
   }
+
 });
 
-router.delete('/:id', async(req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
   try {
     const categoryData = await Category.destroy({
